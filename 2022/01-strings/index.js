@@ -82,4 +82,16 @@ const splitOnChar = (str, charToSplitOn) => {
 }
 
 const substrs = splitOnChar(input2, 'v');
+
+const keyChars = substrs.map((substr) => substr[0]);
+
+/* DAY 3 */
+let input3 = input2;
+
+for (let i = 0; i < substrs.length; i++) {
+	for (let j = 0; j < keyChars.length; j++) {
+		substrs[i] = substrs[i].replaceAll(keyChars[j], " ").trim()
+	}
+}
+
 console.log(substrs);
