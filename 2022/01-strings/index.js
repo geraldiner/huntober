@@ -157,7 +157,35 @@ const countUpperCaseLetters = (word) => {
 }
 
 const validPuns = puns.filter(isValidCatPun);
-console.log(validPuns);
+// console.log(validPuns.length);
+
+/* DAY 6 */
+
+const removeDecoyStrings = (str, interval) => {
+	const letters = str.split("");
+	for (let i = 0; i < letters.length; i++) {
+		if ((i+1) % interval === 0) {
+			letters[i] = '';
+		}
+	}
+	return letters.join("");
+}
+
+// For the string below and 4
+const foo = "Thies its H alltowe!en!? Th#is Tis GHalolowmeen$!"
+// remove decoy strings
+const cleanedFooAnswer = "This is Halloween! This is Halloween!"
+const cleanedFoo = removeDecoyStrings(foo,4);
+// console.log(cleanedFoo);
+// console.log(cleanedFoo === cleanedFooAnswer);
+
+// For the string below and 5
+const bar = "The LBachyelor^ is ma tehrrib le tpelev!isioOn sh8ow."
+// remove decoy strings and preach 🙌
+const cleanedBarAnswer = "The Bachelor is a terrible television show."
+const cleanedBar = removeDecoyStrings(bar,5);
+// console.log(cleanedBar);
+// console.log(cleanedBar === cleanedBarAnswer);
 
 const secretMessage = "e!!Igv)t5lltBcvbdeDH3dVw!OOtI#Aa.ZMDu7WYpP^VVjDc4I50iv#ylhgmQfs";
 
@@ -171,4 +199,6 @@ console.log(spacesAddedSecretMessage);
 console.log("reversing string...");
 const reversedSecretMessage = reverseString(spacesAddedSecretMessage);
 console.log(reversedSecretMessage);
-console.log("validating...");
+console.log("removing decoys...");
+const removedDecoysSecretMessage = removeDecoyStrings(reversedSecretMessage, validPuns.length);
+console.log(removedDecoysSecretMessage);
