@@ -116,7 +116,7 @@ const isValidCatPun = (pun) => {
 	if (pun.length % 5 === 0) {
 		return false;
 	}
-	if (pun.charCodeAt(0) + pun.charCodeAt(pun.length-1) % 2 === 0) {
+	if ((pun.charCodeAt(0) + pun.charCodeAt(pun.length-1)) % 2 === 0) {
 		return false;
 	}
 	if (pun[Math.round(pun.length/2)] === 'e') {
@@ -141,7 +141,7 @@ const countLowerCaseLetters = (word) => {
 		} else {
 			return acc;
 		}
-	})
+	}, 0)
 	return lowerCaseLettersCount;
 }
 
@@ -152,12 +152,12 @@ const countUpperCaseLetters = (word) => {
 		} else {
 			return acc;
 		}
-	})
+	}, 0)
 	return upperCaseeLettersCount;
 }
 
 const validPuns = puns.filter(isValidCatPun);
-// console.log(validPuns.length);
+// console.log(validPuns);
 
 /* DAY 6 */
 
@@ -187,6 +187,78 @@ const cleanedBar = removeDecoyStrings(bar,5);
 // console.log(cleanedBar);
 // console.log(cleanedBar === cleanedBarAnswer);
 
+/* DAY 7 */
+
+const upperToLowerMap = {
+	'A': 'z',
+	'B': 'y',
+	'C': 'x',
+	'D': 'w',
+	'E': 'v',
+	'F': 'u',
+	'G': 't',
+	'H': 's',
+	'I': 'r',
+	'J': 'q',
+	'K': 'p',
+	'L': 'o',
+	'M': 'n',
+	'N': 'm',
+	'O': 'l',
+	'P': 'k',
+	'Q': 'j',
+	'R': 'i',
+	'S': 'h',
+	'T': 'g',
+	'U': 'f',
+	'V': 'e',
+	'W': 'd',
+	'X': 'c',
+	'Y': 'b',
+	'Z': 'a',
+}
+
+const reverseMap = (map) => {
+	const keys = Object.keys(map);
+	const reversedMap = {};
+	keys.forEach((key) => {
+		reversedMap[map[key]] = key;
+	})
+	return reversedMap;
+}
+
+const lowerToUpperMap = reverseMap(upperToLowerMap);
+
+const swapUpperLowerLetters = (str) => {
+	return str.split("").map((letter) => {
+		if (upperToLowerMap[letter]) {
+			return upperToLowerMap[letter];
+		} else if (lowerToUpperMap[letter]) {
+			return lowerToUpperMap[letter];
+		} else {
+			return letter;
+		}
+	}).join("");
+}
+
+const inputA = 'A'  // first letter of the alphabet, uppercase
+const answerA = 'z'  // last letter of the alphabet, lowercase
+
+const inputB = 'p'  // 16th letter of the alphabet, lowercase
+const answerB = 'K'  // 16th letter from *end* of alphabet, uppercase
+
+const inputC = 'vCZNKOV: 0 MFNYVI LI KFMXGFZGRLM XSZMTVH'
+// function replaces letters with opposites
+const answerC = 'Example: 0 number or punctuation changes'
+
+const resultA = swapUpperLowerLetters(inputA);
+const resultB = swapUpperLowerLetters(inputB);
+const resultC = swapUpperLowerLetters(inputC);
+console.log(resultA, answerA === resultA);
+console.log(resultB, answerB === resultB);
+console.log(resultC, answerC === resultC);
+
+
 const secretMessage = "e!!Igv)t5lltBcvbdeDH3dVw!OOtI#Aa.ZMDu7WYpP^VVjDc4I50iv#ylhgmQfs";
 
 console.log(secretMessage);
@@ -202,3 +274,6 @@ console.log(reversedSecretMessage);
 console.log("removing decoys...");
 const removedDecoysSecretMessage = removeDecoyStrings(reversedSecretMessage, validPuns.length);
 console.log(removedDecoysSecretMessage);
+console.log("swapping lower/uppercase letters...");
+const swappedLettersSecretMessage = swapUpperLowerLetters(removedDecoysSecretMessage);
+console.log(swappedLettersSecretMessage)
