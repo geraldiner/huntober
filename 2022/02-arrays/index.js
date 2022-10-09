@@ -31,3 +31,53 @@ console.log(checkEquality(arr1, arr2)) // true
 console.log(checkEquality(arr1, arr3)) // false
 console.log(checkEquality(arr1, arr4)) // false
 // etc.
+
+/** DAY 2 */
+
+const moveElementLeft = (arr, el) => {
+    const elIndex = arr.indexOf(el);
+    if (elIndex - 1 < 0) {
+        return arr;
+    }
+    const prevElement = arr[elIndex - 1];
+    arr.splice(elIndex-1, 1, el);
+    arr.splice(elIndex, 1, prevElement);
+    return arr;
+}
+
+const moveElementRight = (arr, el) => {
+    const elIndex = arr.indexOf(el);
+    if (elIndex + 1 > arr.length-1) {
+        return arr;
+    }
+    const prevElement = arr[elIndex + 1];
+    arr.splice(elIndex+1, 1, el);
+    arr.splice(elIndex, 1, prevElement);
+    return arr;
+}
+
+const arr5 = ['abc', 'xyz', 1, 2, 'Hey!']
+
+// call move left function with 'xyz' and arr5 as arguments
+console.log(moveElementLeft(arr5, 'xyz'));
+// ['xyz', 'abc', 1, 2, 'Hey!']
+
+console.log(moveElementLeft(arr5, 1));
+// ['xyz', 1, 'abc', 2, 'Hey!']
+
+// call move left function again, same arguments
+// Note that 'xyz' is already as far left as it can go
+console.log(moveElementLeft(arr5, 'xyz'))
+// ['xyz', 1, 'abc', 2, 'Hey!'] no change
+
+// call move right function this time, with 2 and arr5 as arguments
+console.log(moveElementRight(arr5, 2))
+// ['xyz', 1, 'abc', 'Hey!', 2]
+
+// call move right function again, same arguments
+// Note that 2 is already as far right as it can go
+console.log(moveElementRight(arr5, 2))
+// ['xyz', 1, 'abc', 'Hey!', 2] no change
+
+console.log(moveElementRight(arr5, 1));
+// ['xyz', 'abc', 1, 'Hey!', 2]
