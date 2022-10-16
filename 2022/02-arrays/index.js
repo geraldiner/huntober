@@ -193,3 +193,35 @@ myGrid = moveElementDown(myGrid, 'f');
 myGrid = moveElementDown(myGrid, 'f');
 // console.log(compareGrids(myGrid, [['a', 'h', 'c'], ['d', 'b', 'i'], ['g', 'e', 'f']]));
 // [['a', 'h', 'c'], ['d', 'b', 'i'], ['g', 'e', 'f']]
+
+/** DAY 5 */
+
+const SHUFFLE_MOVES = [
+	moveElementUp,
+	moveElementDown,
+]
+
+const shuffleGrid = (arr) => {
+	const shuffleMoveIndex = Math.floor(Math.random() * SHUFFLE_MOVES.length);
+	const flatArray = arr.flat();
+	const randomIndex = Math.floor(Math.random() * flatArray.length);
+	const randomElement = flatArray[randomIndex];
+	switch(shuffleMoveIndex) {
+		case 0:
+			arr = moveElementUp(arr, randomElement);
+			return arr;
+		case 1:
+			arr = moveElementDown(arr, randomElement);
+			return arr;
+	}
+}
+
+let grid1 = [[1,2,3],[4,5,6],[7,8,9]];
+for (let i = 0; i < 100; i++) {
+	grid1 = shuffleGrid(grid1);
+}
+console.log(grid1);
+console.log(compareGrids(grid1, [[1,2,3],[4,5,6],[7,8,9]]));
+// shuffle shuffle
+// [[8,3,5],[2,4,9],[6,7,1]]
+
